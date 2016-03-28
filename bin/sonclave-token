@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'highline/import'
+require 'octokit'
+
+client = Octokit::Client.new \
+  :login    => login = ask("Login: "),
+  :password => ask("Password: ") { |q| q.echo = false }
+
+hostname = `hostname`
+token = ask("2-Factor Auth Token (if any):")
+
+oauth = client.create_authorization(:scopes => ["read:org"], :note => "sonclave token generator #{`hostname`}",
+                            :headers => { "X-GitHub-OTP" => token })
+
+puts %{
+Put the following in your .netrc:
+
+machine api.github.com
+  login #{login}
+  password #{oauth.token}
+}

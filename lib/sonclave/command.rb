@@ -1,3 +1,4 @@
+require "awesome_print"
 require 'sonclave/config'
 require 'sonclave/providers/openbsd'
 module Sonclave
@@ -17,16 +18,33 @@ module Sonclave
     end
 
     def do_help()
-      STDERR.puts "use 'go'"
+      STDERR.puts %{
+#{$PROGRAM_NAME} <verb>
+
+Valid verbs are:
+  go\t output commands 
+  dump [all|teams|gh-teams|users]\t dump an internal structure
+}
       exit 1
     end
 
     def do_go()
-      unix_work = Hash.new
-      @config.users.each do |login, login_config |
-          unix_work[login] = login_config["unix"]
-      end
-      puts Sonclave::Providers::OpenBSD.go unix_work
+      puts Sonclave::Providers::OpenBSD.go build
     end
+
+    def do_dump(scope="all")
+      ap case scope 
+        when "all" then build
+        when "teams" then @config.teams
+        when "gh-teams" then @config.github.get
+        when "users" then @config.users
+        else raise ArgumentError
+      end, :index => false
+    end
+
+    def build
+      @config.build
+    end
+
   end
 end

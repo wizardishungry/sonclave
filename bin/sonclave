@@ -3,20 +3,6 @@
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 ARGV << 'help' if ARGV.empty?
-
-aliases = {
-  "g"  => "generate",
-  "d"  => "destroy",
-  "c"  => "console",
-  "s"  => "server",
-  "db" => "dbconsole",
-  "r"  => "runner",
-  "t"  => "test"
-}
-
 command = ARGV.shift
-command = aliases[command] || command
-
 require 'sonclave/command'
-
 Sonclave::Command.new(ARGV).run_command!(command)
