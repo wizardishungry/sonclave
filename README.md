@@ -26,8 +26,8 @@ Sonclave path is /Users/jon/Projects/sonclave/.sonclave
 
 - [x] Proof of Concept
 - [ ] Ssh keys
-- [ ] Github sync
-  - [ ] ssh keys
+- [x] Github sync
+  - [x] ssh keys
   - [x] OAuth token generator
   - [x] Team -> group mappings
 -  Extended Lifecycle
@@ -40,7 +40,7 @@ Sonclave path is /Users/jon/Projects/sonclave/.sonclave
  - [ ] Platform
  - [ ] authorized_keys location / scheme
 - [ ] Bugs / "Enhancements"
-  - [ ] YAML Schema validatio
+  - [ ] YAML Schema validation
   - [ ] Data constraint error handling
   - [ ] String keys inside `unix` configuration array have arbitrary presidence
 

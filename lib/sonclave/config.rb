@@ -20,27 +20,35 @@ module Sonclave
       @path = path
       @users = YAML.load_file "#{path}/users.yml"
       @teams = YAML.load_file "#{path}/github-teams.yml"
-      @github = Github.new @teams
+      @github = Github.new @teams, github_logins
+    end
+
+    def github_logins
+      gh = {}
+      @users.map do |login, login_config |
+          gh[login_config["github"]["login"]] = login
+      end
+      gh
     end
 
     def build
       work = {}
-      github_logins = {}
+      gh_logins = github_logins
+      gh_keys = @github.ssh_keys
       @users.each do |login, login_config |
           work[login] = login_config["unix"]
-          github_logins[login_config["github"]["login"]] = login
+          work[login][:keys] = gh_keys[login]
       end
 
-      teams = @github.get
+      teams = @github.teams
       teams.each do |org, teams|
         teams.each do | team_name, team |
           team[:members].each do |github_login|
-            login = github_logins[github_login]
+            login = gh_logins[github_login]
             work[login] = unix_merge(work[login],team["unix"])
           end
         end
       end
-
 
       return work
     end
