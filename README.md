@@ -1,6 +1,8 @@
 # sonclave
 Dead-simple Unix user, groups, & ssh authorized_keys managment, backed by Github teams.
 
+**Come up with a better name, please!**
+
 ## Configuration
 
 You can find an example configuration at [https://github.com/bongozone/beatniks](https://github.com/bongozone/beatniks).
