@@ -10,6 +10,12 @@ Put this in `.sonclave` for now. Generate a token:
 ```sh
 bin/sonclave-token
 ```
+and put it in your `~/.netrc` (NB: might not work with 2FA disabled on Github)
+```
+machine api.github.com
+  login WIZARDISHUNGRY
+  password deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+```
 
 ## Run
 
@@ -27,7 +33,7 @@ Sonclave path is /Users/jon/Projects/sonclave/.sonclave
 ## Roadmap
 
 - [x] Proof of Concept
-- [ ] Ssh keys
+- [x] Ssh keys
 - [x] Github sync
   - [x] ssh keys
   - [x] OAuth token generator
@@ -42,7 +48,7 @@ Sonclave path is /Users/jon/Projects/sonclave/.sonclave
  - [ ] Platform
  - [ ] authorized_keys location / scheme
 - [ ] Bugs / "Enhancements"
-  - [ ] YAML Schema validation
+  - [ ] YAML schema validation
   - [ ] Data constraint error handling
   - [ ] String keys inside `unix` configuration array have arbitrary presidence
 
